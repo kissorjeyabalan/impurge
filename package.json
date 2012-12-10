@@ -1,0 +1,22 @@
+{
+  "name": "impurge",
+  "main": "impurge.js",
+  "subdomain": "impurge",
+  "scripts": {
+    "start": "impurge.js",
+    "test": "mocha test/test.js"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.8.x"
+  },
+  "dependencies": {
+    "cheerio": "~0.10.1",
+    "mocha": "*",
+    "request": "~2.11.4",
+    "measured": "~0.1.3"
+  },
+    "devDependencies": {
+    "should": "~1.2.1"
+  }
+}
