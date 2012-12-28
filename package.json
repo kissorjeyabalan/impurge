@@ -4,7 +4,7 @@
   "subdomain": "impurge",
   "scripts": {
     "start": "impurge.js",
-    "test": "mocha -t 10000 test/test.js"
+    "test": "mocha -t 4000 test/test.js"
   },
   "version": "0.0.1",
   "engines": {
