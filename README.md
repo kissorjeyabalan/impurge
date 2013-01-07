@@ -4,7 +4,7 @@ This is a simple module meant to extract image URLS from imgur
   impurge.purge("http://imgur.com/IvpcP", function  (e,r) {
   console.log(r)
 });
-</code>
+</code><pre>
 
 will give you 
 
