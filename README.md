@@ -1,10 +1,12 @@
+impurge
+
 This is a simple module meant to extract image URLS from imgur
 
 <pre><code>var impurge = require('impurge');
   impurge.purge("http://imgur.com/IvpcP", function  (e,r) {
   console.log(r)
 });
-</code><pre>
+</code></pre>
 
 will give you 
 
