@@ -58,8 +58,13 @@ impurge.purge = function  (url, callback) {
 			else {
 				callback("unknown_link_error")
 			}
-			request(url, function  (err, res, body) {				
-				var api_json = JSON.parse(body);
+			request(url, function  (err, res, body) {		
+				try{
+					var api_json = JSON.parse(body);	
+				}	catch (err) {
+					callback("impurge: JSON parsing error");
+				}
+				
 				for (var type in api_json){
 					//console.log(type)
 					if (type === 'image'){
