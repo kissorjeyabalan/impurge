@@ -13,7 +13,7 @@
   "dependencies": {
     "mocha": "*",
     "request": "~2.11.4",
-    "jquery": "*",
+    "cheerio": "*"
   },
     "devDependencies": {
     "should": "~1.2.1"
