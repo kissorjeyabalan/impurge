@@ -6,7 +6,7 @@
     "start": "impurge.js",
     "test": "mocha -t 4000 test/test.js"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "node": "0.8.x"
   },
