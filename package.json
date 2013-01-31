@@ -13,9 +13,7 @@
   "dependencies": {
     "mocha": "*",
     "request": "~2.11.4",
-    "measured": "~0.1.3",
     "jquery": "*",
-    "cheerio": "*"
   },
     "devDependencies": {
     "should": "~1.2.1"

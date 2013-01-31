@@ -1,6 +1,5 @@
 var cheerio = require("cheerio")
 ,	request = require("request")
-,	$ = require('jquery')
 impurge = []
 
 module.exports = impurge;
