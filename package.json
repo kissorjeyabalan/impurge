@@ -6,16 +6,27 @@
     "start": "impurge.js",
     "test": "mocha -t 4000 test/test.js"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
+  "description": "takes any imgur url and returns an array of direct image files",
   "engines": {
     "node": "0.8.x"
   },
   "dependencies": {
     "mocha": "*",
     "request": "~2.11.4",
-    "cheerio": "*"
   },
     "devDependencies": {
     "should": "~1.2.1"
-  }
+  },
+  "keywords": [
+    "digitalocean",
+    "digital",
+    "ocean",
+    "api",
+    "cloud",
+    "ssd"
+  ],
+  "author": "hortinstein",
+  "license": "BSD",
+  "readmeFilename": "README.md"
 }
