@@ -43,8 +43,7 @@ describe('impurge', function(){
 	describe('gallery hash url', function  () {
 		it('should find 4 pictures', function(done){
 			impurge.purge("http://imgur.com/gallery/Ptn4M", function  (e,r) {
-			    console.log(e)
-				r.length.should.equal(4);
+			    r.length.should.equal(4);
 				r[0].should.equal('http://i.imgur.com/tYx0Ebf.gif');
 				done();
 			})    	

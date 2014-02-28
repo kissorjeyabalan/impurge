@@ -20,17 +20,10 @@ var determine_link_type = function  (url, callback) {
 	}
 	else if ( imgur_album_url_pattern.exec(url) ) {
 		var match = imgur_album_url_pattern.exec(url);
-	    if (match){
-	        var hashes = match[1].split(/[,&]/);
-	    }
+		if (match){
+		    var hashes = match[1].split(/[,&]/)
+		}
 		callback(null,'album_url',hashes);
-	}
-	else if ( imgur_hashes_pattern.exec(url) ) {
-		var match = imgur_hashes_pattern.exec(url);
-	    if (match){
-	    	var hashes = match[1].split(/[,&]/);
-	    } 
-		callback(null,'hash_url',hashes);
 	}
 	else if ( imgur_gallery_url_pattern.exec(url) ) {
 		var match = imgur_gallery_url_pattern.exec(url);
@@ -39,8 +32,14 @@ var determine_link_type = function  (url, callback) {
 	    } 
 		callback(null,'gallery_url',hashes);
 	}
+	else if ( imgur_hashes_pattern.exec(url) ) {
+		var match = imgur_hashes_pattern.exec(url);
+	    if (match){
+	    	var hashes = match[1].split(/[,&]/);
+	    } 
+		callback(null,'hash_url',hashes);
+	}
 	else {
-	    console.log("sads")
 		callback('unidentified_type');
 	}
 
@@ -64,8 +63,7 @@ impurge.purge = function  (url, callback) {
 				var url = 'http://api.imgur.com/2/image/'+id+".json"
 			}
 			else if (type === 'gallery_url'){
-				console.log('gallery code');
-				var url = 'gallery placeholder code'
+				var url = 'http://api.imgur.com/2/album/'+id+".json"
 			}
 			else {
 				callback("unknown_link_error")
