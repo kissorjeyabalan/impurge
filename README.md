@@ -1,4 +1,4 @@
-impurge
+#impurge
 
 This is a simple module meant to extract image URLS from imgur
 
