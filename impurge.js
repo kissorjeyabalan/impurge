@@ -21,7 +21,8 @@ impurge.get_text_imgur_links = function(text) {
         urls.push(matches[0]);
     };
 
-    console.log(urls);
+    return urls;
+
 }
 
 impurge.is_imgur = function(url) {
