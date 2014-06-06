@@ -48,11 +48,28 @@ getImgurPosts()
         }
     });
 
-//this is a test for text it should return 5 links 
-// var testTextAlbum = 'http://imgur.com/a/o7AVs is a  album_url with id: [ o7AVs ] and url undefined ';
-// var testTextImage = 'http://i.imgur.com/4aCgHc7.jpg is a  image_url with id: null and url http://i.imgur.com/4aCgHc7.jpg ';
-// var testTextHash = 'http://i.imgur.com/oM1mFEd.jpg is a  hash_url with id: [ oM1mFEd] and url undefined ';
-// var testTextAlbum2 = 'http://imgur.com/a/h4gt1 is a  album_url with id: [ h4gt1 ] and url undefined';
-// var testText = testTextAlbum + testTextImage + testTextHash + testTextAlbum2;
-// console.log(testText);
-// var comment_links = impurge.get_text_imgur_links(testText);
+var testUserObj = {};
+var buffer = [];
+var scrape = require('reddit-user-dump'); //this sets up the user objects for parsing
+
+scrape('test_predditor')
+    .on('user', function(userObj) {
+        testUserObj = userObj;
+    }).on('data', function(post) {
+        buffer.push(post)
+    })
+    .on('submission', function(submission) {
+        testSubmission = submission.data;
+    })
+    .on('comment', function(comment) {
+        parseComment(comment.data)
+    })
+    .on('end', function() {
+
+    })
+
+function parseComment(comment) {
+    //console.log(comment.body_html)
+
+    console.log(impurge.get_text_imgur_links(comment.body + ' ' + comment.body));
+};

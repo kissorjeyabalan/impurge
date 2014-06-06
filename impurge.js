@@ -1,6 +1,5 @@
-var $ = require("cheerio"),
-    request = require("request")
-    var impurge = [];
+var request = require("request")
+var impurge = [];
 
 module.exports = impurge;
 
@@ -14,15 +13,10 @@ var imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5,7}[&,]?)+)", "i");
 var imgur_image_pattern = RegExp("^http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg)|(gif)|(png))", "ig");
 
 impurge.get_text_imgur_links = function(text) {
-    var imgur_url_pattern = RegExp("http(s)?://((m)\.|(www)\.|((i)\.))?imgur.com/(a/)?[a-zA-Z0-9&]+((\.jpg)|(\.gif)|(\.png))?", "igm");
-    var matches = imgur_url_pattern.exec(text);
-    var urls = []
-    while ((matches = imgur_url_pattern.exec(text)) !== null) {
-        urls.push(matches[0]);
-    };
-
-    return urls;
-
+    console.log(text)
+    var imgur_url_pattern = RegExp("(http)(s)?://((m)\.|(www)\.|((i)\.))?imgur.com/(a/)?[a-zA-Z0-9&]+((\.jpg)|(\.gif)|(\.png))?", "igm");
+    var matches = text.match(imgur_url_pattern);
+    return matches;
 }
 
 impurge.is_imgur = function(url) {
