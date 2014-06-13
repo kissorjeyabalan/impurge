@@ -1,32 +1,32 @@
 {
-    "name": "impurge",
-    "main": "impurge.js",
-    "subdomain": "impurge",
-    "scripts": {
-        "start": "impurge.js",
-        "test": "node test/test.js"
-    },
-    "version": "0.0.7",
-    "description": "takes any imgur url and returns an array of direct image files",
-    "engines": {
-        "node": "0.8.x"
-    },
-    "dependencies": {
-        "cheerio": "*",
-        "measured": "^0.1.6",
-        "mocha": "*",
-        "reddit-user-dump": "*",
-        "request": "~2.11.4"
-    },
-    "devDependencies": {
-        "should": "~1.2.1"
-    },
-    "keywords": [
-        "imgur",
-        "parser",
-        "image"
-    ],
-    "author": "hortinstein",
-    "license": "BSD",
-    "readmeFilename": "README.md"
+  "name": "impurge",
+  "main": "impurge.js",
+  "subdomain": "impurge",
+  "scripts": {
+    "start": "impurge.js",
+    "test": "node test/test.js"
+  },
+  "version": "0.0.8",
+  "description": "takes any imgur url and returns an array of direct image files",
+  "engines": {
+    "node": "0.8.x"
+  },
+  "dependencies": {
+    "cheerio": "*",
+    "measured": "^0.1.6",
+    "mocha": "*",
+    "reddit-user-dump": "*",
+    "request": "~2.11.4"
+  },
+  "devDependencies": {
+    "should": "~1.2.1"
+  },
+  "keywords": [
+    "imgur",
+    "parser",
+    "image"
+  ],
+  "author": "hortinstein",
+  "license": "BSD",
+  "readmeFilename": "README.md"
 }
