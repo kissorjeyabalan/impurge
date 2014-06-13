@@ -24,7 +24,7 @@ var imgur_image_pattern = RegExp("^http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg
 
 impurge.requests_per_second = function() {
     var reqsPerSec = 0;
-    imgurStats.meter('requestsPerSecond').mark();
+
     console.log(imgurStats)
     try {
         var reqsPerSec = imgurStats.toJSON().requestsPerSecond.mean;
