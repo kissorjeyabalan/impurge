@@ -15,6 +15,8 @@ function getImgurPosts() {
             url: 'http://www.reddit.com/r/gonewild.json?limit=100&after=',
             json: true
         }, function(err, res, obj) {
+
+            //needs to check to see if this is a 404 json
             obj.data.children.forEach(function(item) {
                 if (item.kind === 't3') readStream.emit('url', item.data.url);
             });
@@ -44,6 +46,7 @@ getImgurPosts()
                 } else {
                     //console.log(url, 'is a ', type, 'with id:', id, 'and url', i_url);
                 }
+
             });
         }
     });
@@ -52,7 +55,7 @@ var testUserObj = {};
 var buffer = [];
 var scrape = require('reddit-user-dump'); //this sets up the user objects for parsing
 
-scrape('test_predditor')
+scrape('dirtymilf')
     .on('user', function(userObj) {
         testUserObj = userObj;
     }).on('data', function(post) {
@@ -70,6 +73,6 @@ scrape('test_predditor')
 
 function parseComment(comment) {
     //console.log(comment.body_html)
-
+    console.log(impurge.requests_per_second)
     console.log(impurge.get_text_imgur_links(comment.body + ' ' + comment.body));
 };
