@@ -42,7 +42,7 @@ getImgurPosts()
             impurge.determine_link_type(url, function(err, type, id, i_url) {
                 if (err) {
                     console.log('**e**' + err, url);
-                    throw new Error('unknown imgur link type: ' + url)
+                    //throw new Error('unknown imgur link type: ' + url)
                 } else {
                     //console.log(url, 'is a ', type, 'with id:', id, 'and url', i_url);
                 }
@@ -73,6 +73,16 @@ scrape('dirtymilf')
 
 function parseComment(comment) {
     //console.log(comment.body_html)
-    console.log(impurge.requests_per_second)
-    console.log(impurge.get_text_imgur_links(comment.body + ' ' + comment.body));
+    impurge.purge(impurge.get_text_imgur_links(comment.body + ' ' + comment.body));
+
+
 };
+
+setInterval(function() {
+    try {
+        var reqsPerSec = impurge.requests_per_second();
+        console.log('reddit api calls per second (should be <.5)', reqsPerSec);
+    } catch (err) {
+        console.log(err)
+    }
+}, 5000); //outputs the metrics every 5 seconds

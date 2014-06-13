@@ -24,6 +24,7 @@ var imgur_image_pattern = RegExp("^http://(www\.)?(i\.)?imgur\.com/.{3,7}\.((jpg
 
 impurge.requests_per_second = function() {
     var reqsPerSec = 0;
+    imgurStats.meter('requestsPerSecond').mark();
     console.log(imgurStats)
     try {
         var reqsPerSec = imgurStats.toJSON().requestsPerSecond.mean;
@@ -78,6 +79,7 @@ impurge.determine_link_type = function(url, callback) {
 }
 
 impurge.purge = function(url, callback) {
+    imgurStats.meter('requestsPerSecond').mark();
     impurge.determine_link_type(url, function(error, type, id, url) {
         if (error) {
             callback(error)
