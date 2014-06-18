@@ -29,51 +29,52 @@ function getImgurPosts() {
         if (!started) userJSON(username);
         started = true;
     };
-    return readStream
+    return readStream;
 };
+
+var processWithImgur = function(url) {
+    if (!impurge.is_imgur(url)) {
+        //console.log('**e**NOT IMGUR', url);
+    } else {
+        impurge.determine_link_type(url, function(err, type, id, i_url) {
+            if (err) {
+                console.log('**e**' + err, url);
+                //throw new Error('unknown imgur link type: ' + url)
+            } else {
+                //console.log(url, 'is a ', type, 'with id:', id, 'and url', i_url);
+            }
+
+        });
+    }
+}
 
 //need to look into converting this to the transform type in blog post below 
 //http://strongloop.com/strongblog/practical-examples-of-the-new-node-js-streams-api/
 getImgurPosts()
     .on('url', function(url) {
-        if (!impurge.is_imgur(url)) {
-            console.log('**e**NOT IMGUR', url);
-        } else {
-            impurge.determine_link_type(url, function(err, type, id, i_url) {
-                if (err) {
-                    console.log('**e**' + err, url);
-                    //throw new Error('unknown imgur link type: ' + url)
-                } else {
-                    //console.log(url, 'is a ', type, 'with id:', id, 'and url', i_url);
-                }
-
-            });
-        }
+        processWithImgur(url);
     });
 
 var testUserObj = {};
 var buffer = [];
 var scrape = require('reddit-user-dump'); //this sets up the user objects for parsing
 
-scrape('dirtymilf')
+scrape('nina1987')
     .on('user', function(userObj) {
         testUserObj = userObj;
     }).on('data', function(post) {
-        buffer.push(post)
-    })
-    .on('submission', function(submission) {
-        testSubmission = submission.data;
-    })
-    .on('comment', function(comment) {
-        parseComment(comment.data)
+        if (post.kind === 't3') console.log(post, post.data.url)
+        processWithImgur(post.data.url)
     })
     .on('end', function() {
-
+        console.log('end')
     })
 
-function parseComment(comment) {
+function parseSubmission(comment) {
     //console.log(comment.body_html)
-    impurge.purge(impurge.get_text_imgur_links(comment.body + ' ' + comment.body));
+    impurge.purge(impurge.get_text_imgur_links(comment.body + ' ' + comment.body), function(err, obj) {
+        console.log(err, obj)
+    });
 
 
 };
