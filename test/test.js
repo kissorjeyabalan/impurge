@@ -1,15 +1,20 @@
 var request = require('request');
 var stream = require('stream');
-
+var should = require('should');
+var assert = require('assert');
 var impurge = require('../impurge.js');
 
-//This function tests impurge by getting 100 gonewild posts
 
+var album_url;
+var gallery_url;
+var hash_url;
+var image_url;
+//This function tests impurge by getting 100 gonewild posts
 function getImgurPosts() {
     var readStream = new stream.Readable({
         objectMode: true
     });
-    var usernames = [];
+    var started = false;
     try {
         request({
             url: 'http://www.reddit.com/r/gonewild.json?limit=100&after=',
@@ -20,9 +25,10 @@ function getImgurPosts() {
             obj.data.children.forEach(function(item) {
                 if (item.kind === 't3') readStream.emit('url', item.data.url);
             });
+            readStream.emit('end')
         });
     } catch (error) {
-        callback("Error retrieving " + test, null)
+        callback('Error retrieving ' + test, null)
     }
     readStream._read = function(n) {
         if (!started) loop();
@@ -32,58 +38,65 @@ function getImgurPosts() {
     return readStream;
 };
 
+//process the posts with imgur
 var processWithImgur = function(url) {
     if (!impurge.is_imgur(url)) {
-        //console.log('**e**NOT IMGUR', url);
+        console.log('**e**NOT IMGUR', url);
     } else {
         impurge.determine_link_type(url, function(err, type, id, i_url) {
             if (err) {
                 console.log('**e**' + err, url);
-                //throw new Error('unknown imgur link type: ' + url)
             } else {
+                //used for potential troubleshooting
                 //console.log(url, 'is a ', type, 'with id:', id, 'and url', i_url);
-            }
+                if (type === 'album_url') album_url = url;
+                if (type === 'galley_url') gallery_url = url;
+                if (type === 'hash_url') hash_url = url;
+                if (type === 'image_url') image_url = url;
 
+            }
+            // impurge.purge(url, function(err, url) {
+            //     console.log('err');
+            // });
         });
     }
 }
 
 //need to look into converting this to the transform type in blog post below 
 //http://strongloop.com/strongblog/practical-examples-of-the-new-node-js-streams-api/
-getImgurPosts()
-    .on('url', function(url) {
-        processWithImgur(url);
+
+
+startTests = function() {
+    before(function(done) {
+        getImgurPosts()
+            .on('url', function(url) {
+                processWithImgur(url);
+            }).on('end', function(end) {
+                done();
+            });
+    });
+    it('determine_link_type should have found album_url', function(done) {
+        console.log('testing with album_url ', album_url);
+        album_url.should.not.equal(undefined);
+        done();
     });
 
-var testUserObj = {};
-var buffer = [];
-var scrape = require('reddit-user-dump'); //this sets up the user objects for parsing
-
-scrape('nina1987')
-    .on('user', function(userObj) {
-        testUserObj = userObj;
-    }).on('data', function(post) {
-        if (post.kind === 't3') console.log(post, post.data.url)
-        processWithImgur(post.data.url)
-    })
-    .on('end', function() {
-        console.log('end')
-    })
-
-function parseSubmission(comment) {
-    //console.log(comment.body_html)
-    impurge.purge(impurge.get_text_imgur_links(comment.body + ' ' + comment.body), function(err, obj) {
-        console.log(err, obj)
+    it('determine_link_type should have found gallery_url', function(done) {
+        console.log('testing with gallery_url ', gallery_url);
+        gallery_url.should.not.equal(undefined);
+        done();
     });
 
+    it('determine_link_type should have found hash_url', function(done) {
+        console.log('testing with hash_url ', hash_url);
+        hash_url.should.not.equal(undefined);
+        done();
+    });
 
-};
-
-setInterval(function() {
-    try {
-        var reqsPerSec = impurge.requests_per_second();
-        console.log('reddit api calls per second (should be <.5)', reqsPerSec);
-    } catch (err) {
-        console.log(err)
-    }
-}, 5000); //outputs the metrics every 5 seconds
+    it('determine_link_type should have found image_url', function(done) {
+        console.log('testing with image_url ', image_url);
+        image_url.should.not.equal(undefined);
+        done();
+    });
+}
+startTests();
