@@ -98,7 +98,28 @@ startTests = function() {
         image_url.should.not.equal(undefined);
         done();
     });
-
-
+    ///////////////////
+    ///////////////////
+    it('image_url should find 1 picture', function(done) {
+        impurge.purge(image_url, function(err, urls) {
+            console.log(urls);
+            urls.should.have.lengthOf(1);
+            done();
+        });
+    });
+    it('hash_url should find picture', function(done) {
+        impurge.purge(hash_url, function(err, urls) {
+            console.log(urls);
+            urls.should.have.lengthOf(1);
+            done();
+        });
+    });
+    it('album_url should find picture', function(done) {
+        impurge.purge(album_url, function(err, urls) {
+            console.log(urls);
+            urls.should.have.lengthOf(2);
+            done();
+        });
+    });
 }
 startTests();

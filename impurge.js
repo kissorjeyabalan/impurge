@@ -24,7 +24,7 @@ impurge.requests_per_second = function() {
 }
 
 impurge.get_text_imgur_links = function(text) {
-    var imgur_url_pattern = RegExp("(http)(s)?://((m\.|(www)\.|((i)\.))?imgur.com/(a/)?[a-zA-Z0-9&]+((\.jpg)|(\.gif)|(\.png))?", "igm");
+    var imgur_url_pattern = RegExp("(http)(s)?://((m\.)|(www)\.|((i)\.))?imgur.com/(a/)?[a-zA-Z0-9&]+((\.jpg)|(\.gif)|(\.png))?", "igm");
     var matches = text.match(imgur_url_pattern);
     return matches;
 }
