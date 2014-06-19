@@ -98,5 +98,7 @@ startTests = function() {
         image_url.should.not.equal(undefined);
         done();
     });
+
+
 }
 startTests();
