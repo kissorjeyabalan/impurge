@@ -6,7 +6,7 @@
     "start": "impurge.js",
     "test": "mocha test/test.js"
   },
-  "version": "0.0.81",
+  "version": "0.0.9",
   "description": "takes any imgur url and returns an array of direct image files",
   "engines": {
     "node": "0.8.x"
