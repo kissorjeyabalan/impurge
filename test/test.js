@@ -101,13 +101,13 @@ startTests = function() {
     });
     ///////////////////
     ///////////////////
-    // it('image_url should find 1 picture', function(done) {
-    //     impurge.purge(image_url, function(err, urls) {
-    //         console.log(urls);
-    //         urls.should.have.lengthOf(1);
-    //         done();
-    //     });
-    // });
+    it('image_url should find 1 picture', function(done) {
+        impurge.purge(image_url, function(err, urls) {
+            console.log(urls);
+            urls.should.have.lengthOf(1);
+            done();
+        });
+    });
     it('hash_url should find picture', function(done) {
         impurge.purge(hash_url, function(err, urls) {
             console.log(urls);
@@ -143,5 +143,16 @@ startTests = function() {
             done();
         });
     });
+    it('documentation url should work', function(done) {
+
+
+        impurge.purge("http://imgur.com/a/QgHRA", function(err, urls) {
+            console.log(urls);
+            urls.length.should.be.equal(3);
+            done();
+        });
+    });
+
 }
 startTests();
+
