@@ -1,5 +1,5 @@
 #impurge
-
+[![Build Status](https://travis-ci.org/hortinstein/impurge.svg?branch=master)](https://travis-ci.org/hortinstein/impurge)
 This is a simple module meant to extract image URLS from imgur images in a standard format despite differences in URL format
 
 
