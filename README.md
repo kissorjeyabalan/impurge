@@ -34,11 +34,11 @@ will result in:
 ```
 
 It currently supports:
--album urls ie: http://imgur.com/a/{HASH}
--gallery_url  http://imgur.com/gallery/{HASH}
--hash_url  http://imgur.com/{HASH}
--hash_url {multiple}  http://imgur.com/{HASH},{HASH},{HASH},
--image_url  http://i.imgur.com/{hash}.jpg?1
+ - album urls ie: http://imgur.com/a/{HASH}
+ - gallery_url  http://imgur.com/gallery/{HASH}
+ - hash_url  http://imgur.com/{HASH}
+ - hash_url 9multiple)  http://imgur.com/{HASH},{HASH},{HASH},
+ - image_url  http://i.imgur.com/{hash}.jpg?1
 
 The new test file included will check the currency of the regular expressions against live reddit data to ensure imgur is not changing link formats and will look for any it does not recognize
 
