@@ -60,9 +60,10 @@ var processWithImgur = function(url) {
             // });
         });
     }
+    if (typeof gallery_url == 'undefined') gallery_url = "http://imgur.com/gallery/8tRvB" //rare urls here
 }
 
-//need to look into converting this to the transform type in blog post below 
+//need to look into converting this to the transform type in blog post below
 //http://strongloop.com/strongblog/practical-examples-of-the-new-node-js-streams-api/
 
 
@@ -114,10 +115,19 @@ startTests = function() {
             done();
         });
     });
-    it('album_url should find picture', function(done) {
-        impurge.purge(album_url, function(err, urls) {
+    it('gallery_url should find more than one picture', function(done) {
+        impurge.purge(gallery_url, function(err, urls) {
+            console.log(gallery_url)
             console.log(urls);
-            urls.should.have.lengthOf(2);
+            urls.length.should.be.above(1);
+            done();
+        });
+    });
+    it('album_url should find more than one picture', function(done) {
+        impurge.purge(album_url, function(err, urls) {
+            console.log(album_url)
+            console.log(urls);
+            urls.length.should.be.above(1);
             done();
         });
     });

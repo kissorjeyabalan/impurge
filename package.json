@@ -15,7 +15,6 @@
     "cheerio": "*",
     "measured": "^0.1.6",
     "mocha": "*",
-    "reddit-user-dump": "*",
     "request": "~2.11.4",
     "x-ray": "~1.0.5"
   },
