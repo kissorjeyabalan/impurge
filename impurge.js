@@ -1,6 +1,7 @@
 var request = require("request")
-var impurge = [];
 var xray = require("x-ray")
+var async = require("async")
+var impurge = [];
 
 module.exports = impurge;
 
@@ -86,11 +87,28 @@ impurge.purge = function(url, callback) {
                         for (var i in array) {
                             array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
                         }
-                        callback(null,array);
+                        callback(err,array);
                         return;
                     });
+            } else if (type === 'hash_url' && id.length > 1) {
+                console.log('found multi hash url')
+                for (var i in id) {
+                    id[i] =  "http://imgur.com/"+id[i]
+                }
+                async.map(id, impurge.purge, function(err,array){
+                    var merged= [];
+                    merged = merged.concat.apply(merged, array);//flattens array of arrays
+                    callback(err,merged)
+                })
             } else if (type === 'hash_url') {
-                //var url = 'http://api.imgur.com/2/image/' + id + ".json"
+                url = "http://imgur.com/"+id
+                xray(url)
+                    .select(".textbox img[src]")
+                    .run(function(err, item) {
+                        item = "http://"+item.slice(18)
+                        callback(err,[item]);
+                        return;
+                    });
             } else if (type === 'gallery_url') {
                 var url = 'http://imgur.com/gallery/'+ id
                 xray(url)
@@ -99,7 +117,7 @@ impurge.purge = function(url, callback) {
                         for (var i in array) {
                             array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
                         }
-                        callback(null,array);
+                        callback(err,array);
                         return;
                     });
             } else {
