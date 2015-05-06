@@ -16,7 +16,7 @@
     "measured": "^0.1.6",
     "mocha": "*",
     "request": "~2.11.4",
-    "x-ray": "~1.0.5"
+    "x-ray": "^1.0.5"
   },
   "devDependencies": {
     "should": "~1.2.1"

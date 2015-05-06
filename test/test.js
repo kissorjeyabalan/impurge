@@ -101,20 +101,20 @@ startTests = function() {
     });
     ///////////////////
     ///////////////////
-    it('image_url should find 1 picture', function(done) {
-        impurge.purge(image_url, function(err, urls) {
-            console.log(urls);
-            urls.should.have.lengthOf(1);
-            done();
-        });
-    });
-    it('hash_url should find picture', function(done) {
-        impurge.purge(hash_url, function(err, urls) {
-            console.log(urls);
-            urls.should.have.lengthOf(1);
-            done();
-        });
-    });
+    // it('image_url should find 1 picture', function(done) {
+    //     impurge.purge(image_url, function(err, urls) {
+    //         console.log(urls);
+    //         urls.should.have.lengthOf(1);
+    //         done();
+    //     });
+    // });
+    // it('hash_url should find picture', function(done) {
+    //     impurge.purge(hash_url, function(err, urls) {
+    //         console.log(urls);
+    //         urls.should.have.lengthOf(1);
+    //         done();
+    //     });
+    // });
     it('gallery_url should find more than one picture', function(done) {
         impurge.purge(gallery_url, function(err, urls) {
             console.log(gallery_url)
@@ -125,8 +125,8 @@ startTests = function() {
     });
     it('album_url should find more than one picture', function(done) {
         impurge.purge(album_url, function(err, urls) {
-            console.log(album_url)
-            console.log(urls);
+            //console.log(album_url)
+            //console.log(urls);
             urls.length.should.be.above(1);
             done();
         });

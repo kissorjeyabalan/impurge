@@ -1,5 +1,6 @@
 var request = require("request")
 var impurge = [];
+var xray = require("x-ray")
 
 module.exports = impurge;
 
@@ -78,11 +79,29 @@ impurge.purge = function(url, callback) {
                 callback(null, [url])
                 return;
             } else if (type === 'album_url') {
-                //var url = 'http://api.imgur.com/2/album/' + id + ".json"
+                var url = 'http://imgur.com/a/'+ id
+                xray(url)
+                    .select([".album-view-image-link a[href]"])
+                    .run(function(err, array) {
+                        for (var i in array) {
+                            array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
+                        }
+                        callback(null,array);
+                        return;
+                    });
             } else if (type === 'hash_url') {
                 //var url = 'http://api.imgur.com/2/image/' + id + ".json"
             } else if (type === 'gallery_url') {
-                //var url = 'http://api.imgur.com/2/album/' + id + ".json"
+                var url = 'http://imgur.com/gallery/'+ id
+                xray(url)
+                    .select([".textbox img[src]"])
+                    .run(function(err, array) {
+                        for (var i in array) {
+                            array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
+                        }
+                        callback(null,array);
+                        return;
+                    });
             } else {
                 callback("unknown_link_error")
                 return;
