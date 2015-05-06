@@ -78,42 +78,17 @@ impurge.purge = function(url, callback) {
                 callback(null, [url])
                 return;
             } else if (type === 'album_url') {
-                var url = 'http://api.imgur.com/2/album/' + id + ".json"
+                //var url = 'http://api.imgur.com/2/album/' + id + ".json"
             } else if (type === 'hash_url') {
-                var url = 'http://api.imgur.com/2/image/' + id + ".json"
+                //var url = 'http://api.imgur.com/2/image/' + id + ".json"
             } else if (type === 'gallery_url') {
-                var url = 'http://api.imgur.com/2/album/' + id + ".json"
+                //var url = 'http://api.imgur.com/2/album/' + id + ".json"
             } else {
                 callback("unknown_link_error")
                 return;
             }
             imgurStats.meter('requestsPerSecond').mark();
 
-            request(url, function(err, res, body) {
-                try {
-                    var api_json = JSON.parse(body);
-                } catch (err) {
-                    callback("impurge: JSON parsing error w/following URL:  " + url);
-                }
-
-                for (var type in api_json) {
-                    //console.log(type)
-                    if (type === 'image') {
-                        links.push(api_json[type]['links']['original']);
-                        callback(null, links);
-                    }
-                    if (type === 'album') {
-
-                        var images_json = api_json[type]['images'];
-                        for (var image in images_json) {
-                            //console.log(images_json[image]['links']['original']);
-                            links.push(images_json[image]['links']['original']);
-                        }
-                        callback(null, links);
-                    }
-                }
-                return;
-            })
         }
         //console.log("type: "+ type)
     })
