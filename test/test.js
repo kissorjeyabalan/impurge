@@ -111,7 +111,7 @@ startTests = function() {
     it('hash_url should find picture', function(done) {
         impurge.purge(hash_url, function(err, urls) {
             console.log(urls);
-            urls.length.should.be.equal(1);
+            urls.length.should.be.above(0);
             done();
         });
     });
