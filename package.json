@@ -16,6 +16,10 @@
     "request": "~2.11.4",
     "x-ray": "^1.0.5"
   },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hortinstein/lambda-impurge.git"
+  },
   "devDependencies": {
     "should": "~1.2.1"
   },
@@ -26,5 +30,6 @@
   ],
   "author": "hortinstein",
   "license": "BSD",
+  "homepage": "https://github.com/hortinstein/lambda-impurge#readme",
   "readmeFilename": "README.md"
 }
