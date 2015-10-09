@@ -60,9 +60,10 @@ var processWithImgur = function(url) {
             // });
         });
     }
+    if (typeof gallery_url == 'undefined') gallery_url = "http://imgur.com/gallery/8tRvB" //rare urls here
 }
 
-//need to look into converting this to the transform type in blog post below 
+//need to look into converting this to the transform type in blog post below
 //http://strongloop.com/strongblog/practical-examples-of-the-new-node-js-streams-api/
 
 
@@ -110,16 +111,48 @@ startTests = function() {
     it('hash_url should find picture', function(done) {
         impurge.purge(hash_url, function(err, urls) {
             console.log(urls);
-            urls.should.have.lengthOf(1);
+            urls.length.should.be.above(0);
             done();
         });
     });
-    it('album_url should find picture', function(done) {
-        impurge.purge(album_url, function(err, urls) {
+
+    //test case for strange hash URL
+    //
+    it('hash_url with multiple hashs should find multiple pictures', function(done) {
+        impurge.purge("http://imgur.com/9TNmqwP,3hyCadJ,wZ9tFDL,3USu2QG,GzQzm8E,c4Bm6gU,Fai61py", function(err, urls) {
             console.log(urls);
-            urls.should.have.lengthOf(2);
+            urls.length.should.be.above(4);
             done();
         });
     });
+
+
+    it('gallery_url should find more than one picture', function(done) {
+        impurge.purge(gallery_url, function(err, urls) {
+            // console.log(gallery_url)
+            // console.log(urls);
+            urls.length.should.be.above(1);
+            done();
+        });
+    });
+    it('album_url should find more than one picture', function(done) {
+        impurge.purge(album_url, function(err, urls) {
+            console.log(album_url)
+            console.log(urls);
+            urls.length.should.be.above(0);
+            done();
+        });
+    });
+    it('documentation url should work', function(done) {
+
+
+        impurge.purge("http://imgur.com/a/QgHRA", function(err, urls) {
+            console.log(urls);
+            urls.length.should.be.equal(3);
+            done();
+        });
+    });
+
 }
 startTests();
+
