@@ -82,7 +82,7 @@ impurge.purge = function(url, callback) {
             } else if (type === 'album_url') {
                 var url = 'http://imgur.com/a/'+ id
                 xray(url)
-                    .select([".album-view-image-link a[href]"])
+                    .select([".post-image img[src]"])
                     .run(function(err, array) {
                         for (var i in array) {
                             array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
@@ -91,7 +91,6 @@ impurge.purge = function(url, callback) {
                         return;
                     });
             } else if (type === 'hash_url' && id.length > 1) {
-                console.log('found multi hash url')
                 for (var i in id) {
                     id[i] =  "http://imgur.com/"+id[i]
                 }
@@ -101,9 +100,10 @@ impurge.purge = function(url, callback) {
                     callback(err,merged)
                 })
             } else if (type === 'hash_url') {
+
                 url = "http://imgur.com/"+id
                 xray(url)
-                    .select(".textbox img[src]")
+                    .select(".post-image img[src]")
                     .run(function(err, item) {
                         item = "http://"+item.slice(18)
                         callback(err,[item]);
@@ -112,7 +112,7 @@ impurge.purge = function(url, callback) {
             } else if (type === 'gallery_url') {
                 var url = 'http://imgur.com/gallery/'+ id
                 xray(url)
-                    .select([".textbox img[src]"])
+                    .select([".post-image img[src]"])
                     .run(function(err, array) {
                         for (var i in array) {
                             array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
