@@ -21,7 +21,8 @@
   "devDependencies": {
     "should": "~1.2.1",
     "mocha": "*",
-    "istanbul": "*"
+    "istanbul": "*",
+    "coveralls": "*"
   },
   "keywords": [
     "imgur",
