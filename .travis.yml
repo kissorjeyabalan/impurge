@@ -2,6 +2,7 @@ language: node_js
 
 before_install:
   - npm update -q
+  - npm install coveralls -g
 
 node_js:
   - "4.1"
