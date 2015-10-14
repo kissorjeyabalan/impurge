@@ -2,3 +2,4 @@ config.json
 config.jitsuconf
 node_modules/
 npm-debug.log
+coverage/
