@@ -1,7 +1,7 @@
 #impurge
 [![Build Status](https://travis-ci.org/hortinstein/impurge.svg?branch=master)](https://travis-ci.org/hortinstein/impurge)
 [![CodeShip Status](https://codeship.com/projects/714918c0-53f3-0133-7359-12cb8afd7797/status?branch=master)](https://codeship.com/projects/108507)
-
+[![Coverage Status](https://coveralls.io/repos/hortinstein/impurge/badge.svg?branch=master&service=github)](https://coveralls.io/github/hortinstein/impurge?branch=master)
 
 This is a simple module meant to extract image URLs from imgur pages in a standard format despite differences in URL format.
 
