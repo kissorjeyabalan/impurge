@@ -1,6 +1,4 @@
 language: node_js
-env:
-- COVERALLS_REPO_TOKEN="19hwVvRKgg0lHClabsq41NEmAGTN2oMMM"
 
 before_install:
   - npm update -q
