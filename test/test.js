@@ -158,22 +158,22 @@ startTests = function() {
 
     it('gfycat return an mp4 link', function(done) {
         impurge.purge(gfycat_url, function(err, urls) {
-            console.log(gfycat_url);
             console.log(urls);
+            urls.length.should.be.above(0);
             done();
         });
     });
     it('eroshare should return links', function(done) {
         impurge.purge(eroshare_url, function(err, urls) {
-            console.log(eroshare_url);
             console.log(urls);
+            urls.length.should.be.above(0);
             done();
         });
     });
     it('reddituploads should return an image link', function(done) {
         impurge.purge(reddituploads_url, function(err, urls) {
-            console.log(reddituploads_url);
             console.log(urls);
+            urls.length.should.be.above(0);
             done();
         });
     });

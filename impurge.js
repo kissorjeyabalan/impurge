@@ -83,7 +83,7 @@ impurge.determine_link_type = function(url, callback) {
         callback(null, 'eroshare_url',null, url);
     } else if (reddituploads_pattern.exec(url)){
         var match = reddituploads_pattern.exec(url);
-        callback(null, 'reddituploads_url', url);
+        callback(null, 'reddituploads_url',null, url);
     } 
     else {
         callback('unidentified_type');
@@ -153,7 +153,8 @@ impurge.purge = function(url, callback) {
                     eroshareJSON = JSON.parse(jsons);
                     var arrayLength = eroshareJSON.items.length;
                     for (var i = 0; i < arrayLength; i++) {
-                        console.log(eroshareJSON.items[i]);
+                        //console.log(eroshareJSON.items[i]);
+                        if (eroshareJSON.items[i].url_mp4 === undefined) throw "other type";
                         array.push(eroshareJSON.items[i].url_mp4);
                     }
                     callback(null,array);
@@ -161,8 +162,8 @@ impurge.purge = function(url, callback) {
                 
                 return 
             } else if (type === 'reddituploads_url') {
-                console.log(url);
-                callback('reddituploads');
+                url = url.split("&amp;").join("&");
+                callback(null,[url]);
 
                 return;
 
