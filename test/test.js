@@ -9,6 +9,7 @@ var album_url;
 var gallery_url;
 var hash_url;
 var image_url;
+var gfycat_url;
 //This function tests impurge by getting 100 gonewild posts
 function getImgurPosts() {
     var readStream = new stream.Readable({
@@ -53,6 +54,12 @@ var processWithImgur = function(url) {
                 if (type === 'galley_url') gallery_url = url;
                 if (type === 'hash_url') hash_url = url;
                 if (type === 'image_url') image_url = url;
+                if (type === 'gfycat_url') gfycat_url = url;
+                if (type === 'eroshare_url'){
+                    eroshare_url = url;
+                    console.log(url);
+                } 
+                if (type === 'reddituploads_url') reddituploads_url = url;
 
             }
             // impurge.purge(url, function(err, url) {
@@ -145,6 +152,28 @@ startTests = function() {
             console.log(album_url)
             console.log(urls);
             urls.length.should.be.above(0);
+            done();
+        });
+    });
+
+    it('gfycat return an mp4 link', function(done) {
+        impurge.purge(gfycat_url, function(err, urls) {
+            console.log(gfycat_url);
+            console.log(urls);
+            done();
+        });
+    });
+    it('eroshare should return links', function(done) {
+        impurge.purge(eroshare_url, function(err, urls) {
+            console.log(eroshare_url);
+            console.log(urls);
+            done();
+        });
+    });
+    it('reddituploads should return an image link', function(done) {
+        impurge.purge(reddituploads_url, function(err, urls) {
+            console.log(reddituploads_url);
+            console.log(urls);
             done();
         });
     });

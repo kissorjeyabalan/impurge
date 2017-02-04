@@ -15,7 +15,9 @@ var imgur_album_url_pattern = RegExp("^https?://(?:m\.)?(?:www\.)?imgur\.com/a/(
 var imgur_gallery_url_pattern = RegExp("^https?://(?:www\.)?imgur\.com/gallery/([a-zA-Z0-9]+)", "i");
 var imgur_hashes_pattern = RegExp("imgur\.com/(([a-zA-Z0-9]{5,7}[&,]?)+)", "i");
 var imgur_image_pattern = RegExp("^https?://(www\.)?(i\.)?(m\.)?imgur\.com/.{3,7}\.((jpg)|(gif)|(png))", "ig");
-
+var gfycat_pattern = RegExp("^https?:\/\/(?:thumbs\.)?(?:www\.)?gfycat\.com\/([a-zA-Z0-9]+)", "i");
+var eroshare_pattern = RegExp("^https?:\/\/(?:www\.)?eroshare\.com\/([a-zA-Z0-9]+)", "i");
+var reddituploads_pattern = RegExp("^https?:\/\/(?:i\.)?reddituploads\.com\/", "i");
 impurge.requests_per_second = function() {
     try {
         var reqsPerSec = imgurStats.toJSON().requestsPerSecond.mean;
@@ -36,8 +38,15 @@ impurge.is_imgur = function(url) {
     var match = imgur_url_pattern.exec(url);
     if (match) {
         return true; //console.log(test[0], url);
-    } else {
-        //console.log('NOT FOUND:', url);
+    } else if (gfycat_pattern.exec(url))
+    {
+        return true//console.log('NOT FOUND:', url);
+    } else if (eroshare_pattern.exec(url))
+    {
+        return true//console.log('NOT FOUND:', url);
+    } else if (reddituploads_pattern.exec(url))
+    {
+        return true//console.log('NOT FOUND:', url);
     };
 }
 
@@ -63,7 +72,20 @@ impurge.determine_link_type = function(url, callback) {
             var hashes = match[1].split(/[,&]/);
         }
         callback(null, 'hash_url', hashes);
-    } else {
+    } else if (gfycat_pattern.exec(url)){
+        var match = gfycat_pattern.exec(url);
+        if (match) {
+            var hashes = match[1].split(/[,&]/);
+        }
+        callback(null, 'gfycat_url', hashes);
+    } else if (eroshare_pattern.exec(url)){
+        var match = eroshare_pattern.exec(url);
+        callback(null, 'eroshare_url',null, url);
+    } else if (reddituploads_pattern.exec(url)){
+        var match = reddituploads_pattern.exec(url);
+        callback(null, 'reddituploads_url', url);
+    } 
+    else {
         callback('unidentified_type');
     }
 
@@ -120,6 +142,30 @@ impurge.purge = function(url, callback) {
                         callback(err,array);
                         return;
                     });
+            } else if (type === 'gfycat_url') {
+                var url = 'http://giant.gfycat.com/'+ id +'.mp4'
+                callback(null,[url])
+                return;
+            } else if (type === 'eroshare_url') {
+                request(url, function(error, response, body) {
+                    array = [];
+                    var jsons = body.split("var album =")[1].split("</script>")[0].split(";")[0]; //TrailerParkBoys dirhuhuhuhuhrty way of getting the json 
+                    eroshareJSON = JSON.parse(jsons);
+                    var arrayLength = eroshareJSON.items.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        console.log(eroshareJSON.items[i]);
+                        array.push(eroshareJSON.items[i].url_mp4);
+                    }
+                    callback(null,array);
+                });
+                
+                return 
+            } else if (type === 'reddituploads_url') {
+                console.log(url);
+                callback('reddituploads');
+
+                return;
+
             } else {
                 callback("unknown_link_error")
                 return;
