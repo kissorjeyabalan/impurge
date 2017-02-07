@@ -147,26 +147,26 @@ impurge.purge = function(url, callback) {
                 callback(null,[url])
                 return;
             } else if (type === 'eroshare_url') {
-                try{
-                    request(url, function(error, response, body) {
-                        array = [];
-                        var jsons = body.split("var album =")[1].split("</script>")[0].split(";")[0]; //TrailerParkBoys dirhuhuhuhuhrty way of getting the json 
-                        eroshareJSON = JSON.parse(jsons);
-                        var arrayLength = eroshareJSON.items.length;
-                        for (var i = 0; i < arrayLength; i++) {
-                            //console.log(eroshareJSON.items[i]);
-                            if (eroshareJSON.items[i].type === "Video"){
-                                array.push(eroshareJSON.items[i].url_mp4);
-                            } else {
-                                array.push("https:"+eroshareJSON.items[i].url_orig);
-                            }
+                request(url, function(error, response, body) {
+                    array = [];
+                    var jsons = body.split("var album =")[1].split("</script>")[0].split(";")[0]; //TrailerParkBoys dirhuhuhuhuhrty way of getting the json 
+                    try {
+                        eroshareJSON = JSON.parse(jsons);    
+                    } catch (err){
+                        callback(err);
+                        return;
+                    }
+                    var arrayLength = eroshareJSON.items.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        //console.log(eroshareJSON.items[i]);
+                        if (eroshareJSON.items[i].type === "Video"){
+                            array.push(eroshareJSON.items[i].url_mp4);
+                        } else {
+                            array.push("https:"+eroshareJSON.items[i].url_orig);
                         }
-                        callback(null,array);
-                    });
-                } catch (err){
-                    console.log("error getting url: "+url);
-                    callback("error_eroshare");
-                }
+                    }
+                    callback(null,array);
+                });
                 
                 return 
             } else if (type === 'reddituploads_url') {
