@@ -154,8 +154,11 @@ impurge.purge = function(url, callback) {
                     var arrayLength = eroshareJSON.items.length;
                     for (var i = 0; i < arrayLength; i++) {
                         //console.log(eroshareJSON.items[i]);
-                        if (eroshareJSON.items[i].url_mp4 === undefined) throw "other type";
-                        array.push(eroshareJSON.items[i].url_mp4);
+                        if (eroshareJSON.items[i].type === "Video"){
+                            array.push(eroshareJSON.items[i].url_mp4);
+                        } else {
+                            array.push("https:"+eroshareJSON.items[i].url_orig);
+                        }
                     }
                     callback(null,array);
                 });
