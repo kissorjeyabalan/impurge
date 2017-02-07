@@ -106,10 +106,15 @@ impurge.purge = function(url, callback) {
                 xray(url)
                     .select([".post-image img[src]"])
                     .run(function(err, array) {
-                        for (var i in array) {
+                        try{
+                            for (var i in array) {
                             array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
+                            }
+                            callback(err,array);
+                            
+                        } catch (err){
+                            console.log(err);
                         }
-                        callback(err,array);
                         return;
                     });
             } else if (type === 'hash_url' && id.length > 1) {
@@ -136,10 +141,14 @@ impurge.purge = function(url, callback) {
                 xray(url)
                     .select([".post-image img[src]"])
                     .run(function(err, array) {
-                        for (var i in array) {
+                        try{
+                            for (var i in array) {
                             array[i] =  "http://"+array[i].slice(18) //need to remove the extra imgur name 'http://imgur.com//i.imgur.com/L09GyzP.jpg'
+                            }
+                            callback(err,array);
+                        } catch (err){
+                            console.log(err);
                         }
-                        callback(err,array);
                         return;
                     });
             } else if (type === 'gfycat_url') {
