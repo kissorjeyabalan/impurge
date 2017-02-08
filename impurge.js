@@ -184,6 +184,7 @@ impurge.purge = function(url, callback) {
                 return 
             } else if (type === 'reddituploads_url') {
                 url = url.split("&amp;").join("&");
+                url = url.split("amp;").join("");
                 callback(null,[url]);
 
                 return;
