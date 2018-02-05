@@ -105,8 +105,10 @@ impurge.purge = function(url, callback) {
                 xray(url)
                     .select(".post-image img[src]")
                     .run(function(err, item) {
-                        item = "http://"+item.slice(18)
-                        callback(err,[item]);
+                        if (item != undefined) {
+                            item = "http://"+item.slice(18)
+                            callback(err,[item]);
+                        }
                         return;
                     });
             } else if (type === 'gallery_url') {
